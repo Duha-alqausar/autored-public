@@ -3,305 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoRed - Sistem Perawatan Mobil Premium & Suku Cadang Asli</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>AUTORED | Redefining Automotive Luxury</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;300;400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-        
         :root {
-            --dark-red: #8B0000;
-            --deep-black: #0a0a0a;
-            --card-gray: #151515;
+            --bg: #050505;
+            --primary: #8b0000;
+            --accent: #ff3131;
+            --text-main: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Geist', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--deep-black);
-            color: white;
-            scroll-behavior: smooth;
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        .red-gradient-text {
-            background: linear-gradient(135deg, #FF4D4D 0%, #8B0000 100%);
+        /* Ambient Glows (Apple/Stripe Style) */
+        .glow {
+            position: fixed;
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, transparent 70%);
+            top: -20%;
+            right: -20%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        .btn-nav {
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s var(--ease-out);
+        }
+
+        .btn-nav:active { transform: scale(0.96); }
+
+        /* Sections Layout */
+        section {
+            padding: 100px 40px;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 84px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 24px;
+            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .cta-button {
-            background: linear-gradient(135deg, #8B0000 0%, #4a0000 100%);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.4);
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
         }
 
-        .nav-glass {
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* Trust Strip */
+        .trust-strip {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 80px;
+        }
+
+        .trust-item { text-align: center; }
+        .trust-item span { display: block; font-size: 32px; font-weight: 800; color: var(--accent); }
+        .trust-item label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
         }
 
         .feature-card {
-            background: var(--card-gray);
-            border: 1px solid #222;
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s var(--ease-out);
         }
-        .feature-card:hover { border-color: var(--dark-red); }
 
-        .trust-logo { opacity: 0.4; filter: grayscale(1); transition: 0.3s; }
-        .trust-logo:hover { opacity: 1; filter: grayscale(0); }
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            background: rgba(139, 0, 0, 0.05);
+        }
 
-        .bg-pattern {
-            background-image: radial-gradient(circle at 2px 2px, rgba(139, 0, 0, 0.08) 1px, transparent 0);
-            background-size: 30px 30px;
+        .feature-icon {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 { margin-bottom: 16px; font-size: 20px; }
+        .feature-card p { color: var(--text-secondary); font-size: 15px; }
+
+        /* Interactive Showcase (Mockup) */
+        .showcase {
+            background: linear-gradient(180deg, var(--bg), #110000);
+            border-radius: 40px;
+            padding: 100px 60px;
+            text-align: center;
+            margin: 60px auto;
+            border: 1px solid var(--glass-border);
+        }
+
+        .mockup-container {
+            margin-top: 60px;
+            position: relative;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mockup-main {
+            width: 100%;
+            border-radius: 20px;
+            border: 8px solid #222;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+
+        /* Tabs Interface */
+        .tab-triggers {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 99px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Closing section */
+        .closing {
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .closing h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 32px;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 12px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Animations */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s var(--ease-out);
+        }
+
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="bg-pattern">
-
-    <!-- Navigasi -->
-    <nav class="nav-glass fixed w-full z-50 py-4 px-6 md:px-12 flex justify-between items-center text-sm">
-        <div class="text-2xl font-extrabold tracking-tighter flex items-center">
-            <span class="text-white">AUTO</span><span class="text-red-600">RED</span>
+<body>
+    <div class="glow"></div>
+    
+    <nav>
+        <div class="logo">AUTORED</div>
+        <div class="nav-links">
+            <a href="#">Layanan</a>
+            <a href="#">Showcase</a>
+            <a href="#">Intelligence</a>
+            <a href="#">Kontak</a>
         </div>
-        <div class="hidden md:flex gap-8 font-medium opacity-80 uppercase tracking-widest text-[10px]">
-            <a href="#solusi" class="hover:text-red-500 transition">Solusi</a>
-            <a href="#layanan" class="hover:text-red-500 transition">Layanan</a>
-            <a href="#testimoni" class="hover:text-red-500 transition">Testimoni</a>
-        </div>
-        <a href="#booking" class="cta-button px-6 py-2 rounded-full font-bold uppercase text-[10px] tracking-widest">Booking Service</a>
+        <button class="btn-nav">Masuk Sesi</button>
     </nav>
 
-    <!-- HERO SECTION (Target: Clarity & Value Prop) -->
-    <section class="relative min-h-screen flex items-center pt-20 px-6 md:px-12">
-        <div class="max-w-4xl z-10">
-            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
-                Mobil Prima Tanpa Harus <br><span class="red-gradient-text">Keluar Rumah.</span>
-            </h1>
-            <p class="text-lg md:text-xl opacity-60 mb-10 max-w-2xl leading-relaxed">
-                Platform perawatan mobil #1 yang menggabungkan kemudahan pengerjaan di tempat dengan jaminan suku cadang 100% original. Hemat waktu 4 jam per servis.
-            </p>
-            <div class="flex flex-col md:flex-row gap-4">
-                <a href="#booking" class="cta-button px-10 py-4 rounded-xl font-bold text-center">
-                    Cek Harga Servis Sekarang
-                </a>
-                <button class="px-10 py-4 border border-white/10 rounded-xl font-bold hover:bg-white/5 transition">
-                    Lihat Katalog Part
-                </button>
+    <main>
+        <section class="hero">
+            <h1 data-animate>Drive the Future.</h1>
+            <p data-animate>Standar baru dalam manajemen aset otomotif premium. Didukung oleh Intelligence Core G-Brain untuk presisi tanpa kompromi.</p>
+            <div class="hero-btns" data-animate>
+                <a href="#" class="btn-primary">Amankan Slot Service</a>
+                <a href="ig_dashboard.html" class="btn-secondary">Lihat Intelligence Lab</a>
             </div>
-            <!-- Quick Social Proof -->
-            <div class="mt-12 flex items-center gap-4 opacity-50 text-xs">
-                <div class="flex">
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                </div>
-                <span>Telah melayani 12,000+ mobil di seluruh Indonesia</span>
-            </div>
-        </div>
-        <!-- BG Image Placeholder -->
-        <div class="absolute right-0 bottom-0 top-0 w-full md:w-1/2 opacity-30 md:opacity-100 z-0">
-            <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=1200" alt="Cars" class="h-full w-full object-cover mask-gradient">
-        </div>
-    </section>
+        </section>
 
-    <!-- TRUST BAR (Logos) -->
-    <section class="py-12 border-y border-white/5 bg-black">
-        <div class="px-6 md:px-12 flex flex-wrap justify-between items-center gap-8 grayscale">
-            <span class="text-xs font-bold uppercase opacity-30 tracking-[0.3em]">Authorized Partners</span>
-            <img src="https://www.vectorlogo.zone/logos/toyota/toyota-icon.svg" alt="Toyota" class="h-6 trust-logo">
-            <img src="https://www.vectorlogo.zone/logos/bmw/bmw-icon.svg" alt="BMW" class="h-10 trust-logo">
-            <img src="https://www.vectorlogo.zone/logos/honda/honda-icon.svg" alt="Honda" class="h-8 trust-logo">
-            <img src="https://www.vectorlogo.zone/logos/mercedes/mercedes-icon.svg" alt="Merc" class="h-10 trust-logo">
-            <img src="https://www.vectorlogo.zone/logos/tesla/tesla-icon.svg" alt="Tesla" class="h-6 trust-logo">
-        </div>
-    </section>
+        <section class="trust-strip" data-animate>
+            <div class="trust-item">
+                <span>12.5k</span>
+                <label>Loyal Audience</label>
+            </div>
+            <div class="trust-item">
+                <span>0.15s</span>
+                <label>Diagnostic Speed</label>
+            </div>
+            <div class="trust-item">
+                <span>24/7</span>
+                <label>AI Monitoring</label>
+            </div>
+            <div class="trust-item">
+                <span>100%</span>
+                <label>Luxury Redefined</label>
+            </div>
+        </section>
 
-    <!-- PROBLEM & SOLUTION (Target: Emotional Connect) -->
-    <section id="solusi" class="py-24 px-6 md:px-12">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <span class="text-red-500 font-bold text-xs uppercase tracking-widest mb-4 block">Bukan Sekadar Bengkel</span>
-                <h2 class="text-4xl font-bold mb-8">Lupakan Antrean <br>Panjang di Akhir Pekan.</h2>
-                <div class="space-y-6">
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-red-900/30 flex items-center justify-center text-red-500 shrink-0">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Teknisi datang ke lokasi Anda</h4>
-                            <p class="text-sm opacity-50">Rumah, kantor, atau apartemen. Kami yang menyesuaikan jadwal Anda.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-red-900/30 flex items-center justify-center text-red-500 shrink-0">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Suku Cadang Terverifikasi QR</h4>
-                            <p class="text-sm opacity-50">Scan kode untuk memastikan keaslian komponen yang terpasang.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-lg bg-red-900/30 flex items-center justify-center text-red-500 shrink-0">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold">Laporan Digital Transparan</h4>
-                            <p class="text-sm opacity-50">Setiap pengerjaan difoto dan dilaporkan langsung dalam format PDF ke WA Anda.</p>
-                        </div>
-                    </div>
+        <section>
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 36px; font-weight: 800;">Ekosistem Terintegrasi.</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-animate>
+                    <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Engine Diagnostics</h3>
+                    <p>Sensor real-time yang memantau setiap detak jantung kendaraan Anda melalui laporan dashboard live.</p>
+                </div>
+                <div class="feature-card" data-animate>
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Premium Protection</h3>
+                    <p>Perawatan bodi dan mesin dengan material kelas tinggi yang memastikan nilai aset Anda tetap maksimal.</p>
+                </div>
+                <div class="feature-card" data-animate>
+                    <div class="feature-icon"><i class="fas fa-chart-network"></i></div>
+                    <h3>Insight Analytics</h3>
+                    <p>Dapatkan data performa digital kendaraan dan brand Anda yang dikelola oleh asisten AI cerdas.</p>
                 </div>
             </div>
-            <div class="rounded-3xl overflow-hidden shadow-2xl shadow-red-900/20 border border-white/5">
-                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1000" alt="Work">
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CORE BENEFITS (Target: Conviction) -->
-    <section id="layanan" class="py-24 px-6 md:px-12 bg-[#0d0d0d]">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Kenapa VIP Pilih AutoRed?</h2>
-            <p class="opacity-50 max-w-xl mx-auto">Kami menggabungkan teknologi AI untuk diagnosa dengan tangan handal mekanik berpengalaman.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="feature-card p-10 rounded-3xl group">
-                <i class="fas fa-bolt text-3xl mb-6 text-red-500 group-hover:scale-110 transition"></i>
-                <h3 class="text-xl font-bold mb-4">Fast-Track Engine</h3>
-                <p class="text-sm opacity-50 leading-relaxed">Sistem logistik cerdas kami memastikan ketersediaan suku cadang 40% lebih cepat dibanding distributor konvensional.</p>
+        <section class="showcase">
+            <h2 style="font-size: 40px; margin-bottom: 20px;">Intelligence at your fingertips.</h2>
+            <div class="tab-triggers">
+                <button class="tab-btn active" onclick="switchView('mobile')">Mobile Experience</button>
+                <button class="tab-btn" onclick="switchView('desktop')">Pro Dashboard</button>
             </div>
-            <div class="feature-card p-10 rounded-3xl group">
-                <i class="fas fa-shield-alt text-3xl mb-6 text-red-500 group-hover:scale-110 transition"></i>
-                <h3 class="text-xl font-bold mb-4">Garansi 6 Bulan</h3>
-                <p class="text-sm opacity-50 leading-relaxed">Kami sangat yakin dengan kualitas pengerjaan kami. Jika ada kendala setelah servis, kami datang lagi gratis.</p>
+            <div class="mockup-container" data-animate>
+                <img id="mockup-img" src="https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1200&auto=format&fit=crop" class="mockup-main" alt="Mockup">
             </div>
-            <div class="feature-card p-10 rounded-3xl group">
-                <i class="fas fa-mobile-alt text-3xl mb-6 text-red-500 group-hover:scale-110 transition"></i>
-                <h3 class="text-xl font-bold mb-4">Real-Time Tracking</h3>
-                <p class="text-sm opacity-50 leading-relaxed">Pantau posisi mekanik dan estimasi waktu selesai langsung dari smartphone Anda melalui platform kami.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- HOW IT WORKS (Target: Simple Frictionless) -->
-    <section class="py-24 px-6 md:px-12">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-1/3">
-                    <h2 class="text-3xl font-bold mb-4">Hanya <br>3 Langkah Menuju Mobil Sehat.</h2>
-                    <p class="text-sm opacity-40">Proses yang kami singkat agar Anda bisa fokus pada hal lain yang lebih penting.</p>
-                </div>
-                <div class="flex-1 grid md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="text-6xl font-black text-white/5 mb-[-30px]">01</div>
-                        <div class="relative z-10 pt-4 px-4 bg-pattern feature-card pb-8 rounded-2xl">
-                            <h5 class="font-bold mb-2">Pilih Jasa</h5>
-                            <p class="text-[10px] opacity-40 uppercase tracking-widest">Atau masukan keluhan</p>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-6xl font-black text-white/5 mb-[-30px]">02</div>
-                        <div class="relative z-10 pt-4 px-4 bg-pattern feature-card pb-8 rounded-2xl">
-                            <h5 class="font-bold mb-2">Tentukan Lokasi</h5>
-                            <p class="text-[10px] opacity-40 uppercase tracking-widest">Rumah atau Kantor</p>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-6xl font-black text-white/5 mb-[-30px]">03</div>
-                        <div class="relative z-10 pt-4 px-4 bg-pattern feature-card pb-8 rounded-2xl">
-                            <h5 class="font-bold mb-2">Duduk Manis</h5>
-                            <p class="text-[10px] opacity-40 uppercase tracking-widest">Mekanik tiba di hari H</p>
-                        </div>
-                    </div>
-                </div>
+        <section class="closing">
+            <h2 data-animate>Siap melaju lebih jauh?</h2>
+            <div class="hero-btns" style="justify-content: center;" data-animate>
+                <button class="btn-primary" onclick="launchModal()">Mulai Sekarang</button>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- TESTIMONIALS (Social Proof) -->
-    <section id="testimoni" class="py-24 px-6 md:px-12 bg-pattern">
-        <div class="flex justify-between items-end mb-16">
-            <div>
-                <h2 class="text-4xl font-bold">Apa Kata <br>Pemilik Mobil?</h2>
-            </div>
-            <div class="hidden md:flex gap-4">
-                <button class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5"><i class="fas fa-arrow-left"></i></button>
-                <button class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 text-red-500"><i class="fas fa-arrow-right"></i></button>
-            </div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="feature-card p-10 rounded-3xl">
-                <p class="text-lg italic opacity-80 mb-8 italic">"Biasanya harus buang waktu 5 jam di bengkel resmi tiap ganti oli. Pake AutoRed mekaniknya ke rumah, saya bisa tetep zoom call meeting. Asli praktis!"</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-red-900/40"></div>
-                    <div>
-                        <h5 class="font-bold">Andi Pratama</h5>
-                        <p class="text-[10px] opacity-40 uppercase tracking-tighter">Pengusaha | BMW 320i</p>
-                    </div>
-                </div>
-            </div>
-            <div class="feature-card p-10 rounded-3xl">
-                <p class="text-lg italic opacity-80 mb-8 italic">"Sempet ragu suku cadangnya asli apa gak. Pas discan QR code di dusnya, emang beneran ori Toyota Astra. Pelayanan bintang lima harga ramah."</p>
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-full bg-red-900/40"></div>
-                    <div>
-                        <h5 class="font-bold">Siska Wijaya</h5>
-                        <p class="text-[10px] opacity-40 uppercase tracking-tighter">HR Director | Toyota Alphard</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOOKING FORM (Conversion Point) -->
-    <section id="booking" class="py-24 px-6 md:px-12">
-        <div class="max-w-4xl mx-auto rounded-3xl p-8 md:p-16 red-gradient relative overflow-hidden backdrop-blur-xl border border-red-500/20">
-            <div class="relative z-10 grid md:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-4xl font-bold mb-6">Mulai Rawat Mobil Anda Hari Ini.</h2>
-                    <p class="opacity-70 mb-8">Dapatkan diskon 15% untuk pengerjaan pertama di rumah Anda (Khusus area JABODETABEK).</p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-red-300"></i> <span class="text-sm">Pembayaran Aman via Platform</span></div>
-                        <div class="flex items-center gap-3"><i class="fas fa-award text-red-300"></i> <span class="text-sm">Teknisi Bersertifikat BNSP</span></div>
-                    </div>
-                </div>
-                <div class="bg-black/20 p-8 rounded-2xl space-y-4 border border-white/5">
-                    <input type="text" placeholder="Nama Lengkap" class="w-full bg-black/30 border border-white/5 p-4 rounded-xl text-sm focus:border-red-500 outline-none">
-                    <input type="text" placeholder="Tipe Kendaraan (e.g. Innova Zenix)" class="w-full bg-black/30 border border-white/5 p-4 rounded-xl text-sm focus:border-red-500 outline-none">
-                    <input type="tel" placeholder="Nomor WhatsApp" class="w-full bg-black/30 border border-white/5 p-4 rounded-xl text-sm focus:border-red-500 outline-none">
-                    <button class="w-full bg-white text-dark-red py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-gray-100 transition shadow-xl">
-                        KIRIM REQUEST
-                    </button>
-                </div>
-            </div>
-            <!-- Decorative Icon -->
-            <i class="fas fa-car absolute -right-16 -bottom-16 text-[15rem] opacity-5 rotate-12"></i>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="py-12 px-6 md:px-12 border-t border-white/5 text-center">
-        <div class="text-2xl font-extrabold tracking-tighter mb-4">
-            <span class="text-white">AUTO</span><span class="text-red-600">RED</span>
-        </div>
-        <p class="text-xs opacity-30 uppercase tracking-[0.4em] mb-8">Professional Car Care Everywhere</p>
-        <div class="flex justify-center gap-6 mb-8 text-xl opacity-40">
-            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-youtube"></i></a>
-        </div>
-        <div class="text-[10px] opacity-20 uppercase tracking-widest">
-            &copy; 2026 PT AutoRed Digital Indonesia. <br>Sebuah ekosistem oleh Growth Architect Team.
-        </div>
+    <footer>
+        &copy; 2026 AUTORED & PT Difin Kreatif Incorpora. <br>
+        Engineering by Duha Alqausar | Intelligence by Hermes Agent.
     </footer>
 
     <script>
-        lucide.createIcons();
+        // Intersection Observer for Scroll Animations (Apple-like)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+        // Interactive Tab Logic
+        function switchView(type) {
+            const img = document.getElementById('mockup-img');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Simulate content change
+            img.style.opacity = '0.5';
+            setTimeout(() => {
+                if(type === 'mobile') {
+                    img.src = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1200&auto=format&fit=crop";
+                } else {
+                    img.src = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop";
+                }
+                img.style.opacity = '1';
+            }, 300);
+        }
+
+        function launchModal() {
+            alert("Sistem Pendaftaran Siap. Menghubungkan ke Tim Digital Finger...");
+        }
     </script>
 </body>
 </html>
