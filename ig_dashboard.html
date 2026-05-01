@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTORED | Advanced IG Intelligence</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --primary-red: #8b0000;
+            --accent-red: #ff3131;
+            --sidebar-width: 240px;
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #f8fafc;
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Background Decoration */
+        .decor-blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-red);
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        /* Sidebar Improvement */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #000;
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent-red);
+            letter-spacing: 3px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, var(--primary-red), transparent);
+            color: #fff;
+            box-shadow: -2px 0 0 var(--accent-red);
+        }
+
+        /* Main Area */
+        .wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        header {
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 5;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .page-content {
+            padding: 32px 40px;
+            display: none; /* Layout logic */
+        }
+
+        .page-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dashboard Components */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-card h4 { margin: 0; font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card .value { font-size: 24px; font-weight: 700; margin: 8px 0; display: block; }
+        .stat-card .trend { font-size: 12px; font-weight: 600; }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Buttons & UI Elements */
+        .btn-sync {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-sync:hover { background: #e2e8f0; transform: scale(1.02); }
+
+        /* Audience View */
+        .audience-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+        /* Content Lab View */
+        .content-scroller {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+        }
+
+        .content-card {
+            min-width: 250px;
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .content-img { width: 100%; height: 200px; object-fit: cover; }
+
+        .tag {
+            padding: 4px 8px;
+            background: rgba(255, 49, 49, 0.1);
+            color: var(--accent-red);
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="decor-blob" style="top: -50px; right: 10%;"></div>
+    <div class="decor-blob" style="bottom: 10%; left: 0;"></div>
+
+    <aside class="sidebar">
+        <div class="logo">AUTORED</div>
+        <nav>
+            <div class="nav-item active" onclick="switchTab('dashboard')"><i class="fas fa-grid-2"></i> Performance</div>
+            <div class="nav-item" onclick="switchTab('audience')"><i class="fas fa-users-viewfinder"></i> Audience Info</div>
+            <div class="nav-item" onclick="switchTab('lab')"><i class="fas fa-flask"></i> Content Lab</div>
+            <div class="nav-item" onclick="switchTab('inbox')"><i class="fas fa-envelope-open-text"></i> Messaging</div>
+            <div class="nav-item" onclick="switchTab('settings')"><i class="fas fa-sliders"></i> Config</div>
+        </nav>
+    </aside>
+
+    <div class="wrapper">
+        <header>
+            <h2 id="header-title">Performance Intelligence</h2>
+            <div style="display: flex; gap: 16px;">
+                <button class="btn-sync" onclick="refreshData()">
+                    <i class="fas fa-bolt-lightning" id="refresh-icon"></i> REFRESH DATA
+                </button>
+            </div>
+        </header>
+
+        <!-- DASHBOARD PAGE -->
+        <div id="dashboard" class="page-content active">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h4>Total Followers</h4>
+                    <span class="value">12,504</span>
+                    <span class="trend" style="color: #4ade80">+4.2% from last month</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Impressions</h4>
+                    <span class="value">249,122</span>
+                    <span class="trend" style="color: #4ade80">+11.5%</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Profile Views</h4>
+                    <span class="value">8,432</span>
+                    <span class="trend" style="color: #f87171">-1.2%</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Engagement</h4>
+                    <span class="value">5.82%</span>
+                    <span class="trend" style="color: #4ade80">+0.8%</span>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="card">
+                    <h3 style="margin-top: 0">Reach Growth</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="reachChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0">Interactions</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="interactionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUDIENCE PAGE -->
+        <div id="audience" class="page-content">
+            <div class="audience-metrics">
+                <div class="card">
+                    <h3>Top Locations</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border);">
+                            <span>Jakarta, Indonesia</span> <strong>42%</strong>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border);">
+                            <span>Bandung, Indonesia</span> <strong>18%</strong>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border);">
+                            <span>Surabaya, Indonesia</span> <strong>12%</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Age Demographics</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT LAB PAGE -->
+        <div id="lab" class="page-content">
+            <div class="card" style="margin-bottom: 24px;">
+                <h3>AI Content Recommendations</h3>
+                <p style="color: var(--text-dim);">Dianalisis oleh G-Brain: Postingan bertema "Luxury Wheels" memiliki reach 3x lipat lebih tinggi.</p>
+                <button class="btn-sync" style="background: var(--primary-red); color: white;">Generate AI Script</button>
+            </div>
+            <div class="content-scroller">
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?q=80&w=300" class="content-img">
+                    <div style="padding: 12px;">
+                        <span class="tag">TOP PERFORMER</span>
+                        <h4 style="margin: 8px 0;">The Red Beast Reel</h4>
+                        <p style="font-size: 12px; color: var(--text-dim);"><i class="fas fa-eye"></i> 14k Reach</p>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=300" class="content-img">
+                    <div style="padding: 12px;">
+                        <span class="tag">GROWING</span>
+                        <h4 style="margin: 8px 0;">Classic Review</h4>
+                        <p style="font-size: 12px; color: var(--text-dim);"><i class="fas fa-eye"></i> 8k Reach</p>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=300" class="content-img">
+                    <div style="padding: 12px;">
+                        <span class="tag">FEATURED</span>
+                        <h4 style="margin: 8px 0;">Drift Session</h4>
+                        <p style="font-size: 12px; color: var(--text-dim);"><i class="fas fa-eye"></i> 12k Reach</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="inbox" class="page-content">
+            <div class="card">
+                <h3>Instagram DMs</h3>
+                <p style="color: var(--text-dim);">Hubungkan API untuk membalas DM melalui kecerdasan Hermes Agent.</p>
+            </div>
+        </div>
+
+        <div id="settings" class="page-content">
+            <div class="card">
+                <h3>API Configuration</h3>
+                <div style="margin-top: 20px;">
+                    <label style="display:block; margin-bottom: 8px; font-size: 12px;">Access Token Status</label>
+                    <div style="padding: 12px; background: #000; border-radius: 8px; color: var(--accent-red); font-family: monospace;">NOT CONNECTED</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                dashboard: 'Performance Intelligence',
+                audience: 'Audience Insights',
+                lab: 'Content Laboratory',
+                inbox: 'Unified Messaging',
+                settings: 'System Configuration'
+            };
+            document.getElementById('header-title').innerText = titles[tabId];
+        }
+
+        function refreshData() {
+            const icon = document.getElementById('refresh-icon');
+            icon.classList.add('fa-spin');
+            setTimeout(() => {
+                icon.classList.remove('fa-spin');
+                alert('Intelligence Core Synced!');
+            }, 1000);
+        }
+
+        // Charts
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { size: 10 } } },
+                x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+            }
+        };
+
+        // Reach Chart
+        new Chart(document.getElementById('reachChart'), {
+            type: 'line',
+            data: {
+                labels: ['1 May', '2 May', '3 May', '4 May', '5 May', '6 May', '7 May'],
+                datasets: [{
+                    data: [18000, 22000, 19000, 31000, 28000, 35000, 42000],
+                    borderColor: '#ff3131',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: (ctx) => {
+                        const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(255, 49, 49, 0.2)');
+                        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                        return gradient;
+                    }
+                }]
+            },
+            options: commonOptions
+        });
+
+        // Interaction Chart
+        new Chart(document.getElementById('interactionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Reels', 'Static', 'Carousel', 'Stories'],
+                datasets: [{
+                    data: [450, 120, 310, 890],
+                    backgroundColor: ['#ff3131', '#8b0000', '#666', '#fff'],
+                    borderRadius: 8
+                }]
+            },
+            options: commonOptions
+        });
+
+        // Age Chart
+        new Chart(document.getElementById('ageChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['18-24', '25-34', '35-44', '45+'],
+                datasets: [{
+                    data: [35, 45, 15, 5],
+                    backgroundColor: ['#ff3131', '#8b0000', '#fff', '#333'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                ...commonOptions,
+                cutout: '70%',
+                plugins: { legend: { display: true, position: 'bottom' } }
+            }
+        });
+    </script>
+</body>
+</html>
