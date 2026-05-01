@@ -3,428 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AUTORED | Redefining Automotive Luxury</title>
-    <!-- Premium Fonts -->
+    <title>AUTORED | Elite Automotive Performance & Intelligence</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;300;400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
-            --bg: #050505;
-            --primary: #8b0000;
-            --accent: #ff3131;
-            --text-main: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #030303;
+            --surface: #0a0a0a;
+            --accent: #ff0000;
+            --dark-red: #4a0000;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #fff;
+            --text-dim: #999;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Geist', -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text-main); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            overflow-x: hidden;
-            line-height: 1.5;
-        }
-
-        /* Ambient Glows (Apple/Stripe Style) */
-        .glow {
-            position: fixed;
-            width: 80vw;
-            height: 80vh;
-            background: radial-gradient(circle, rgba(139, 0, 0, 0.15) 0%, transparent 70%);
-            top: -20%;
-            right: -20%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(5, 5, 5, 0.5);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 20px;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover { color: #fff; }
-
-        .btn-nav {
-            background: var(--accent);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 999px;
-            font-weight: 600;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s var(--ease-out);
-        }
-
-        .btn-nav:active { transform: scale(0.96); }
-
-        /* Sections Layout */
-        section {
-            padding: 100px 40px;
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Hero Section */
+        /* Full Screen Hero with Auto-Slider Feel */
         .hero {
+            position: relative;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding-top: 80px;
+            padding: 0 10%;
+            background: linear-gradient(90deg, #000 30%, transparent 100%), 
+                        url('https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2000&auto=format&fit=crop') center/cover;
         }
 
-        .hero h1 {
-            font-size: 84px;
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1;
-            margin-bottom: 24px;
-            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .hero-content { max-width: 800px; z-index: 10; }
+        .hero h1 { font-size: 5rem; font-weight: 900; line-height: 0.9; margin-bottom: 2rem; color: #fff; text-transform: uppercase; }
+        .hero span { color: var(--accent); }
+        .hero p { font-size: 1.25rem; color: var(--text-dim); margin-bottom: 3rem; }
 
-        .hero p {
-            font-size: 20px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
+        .btn-group { display: flex; gap: 15px; }
+        .btn { padding: 18px 40px; border-radius: 4px; font-weight: 800; text-decoration: none; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; }
+        .btn-red { background: var(--accent); color: #fff; }
+        .btn-outline { border: 1px solid var(--glass-border); color: #fff; backdrop-filter: blur(10px); }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        .hero-btns {
-            display: flex;
-            gap: 16px;
-        }
-
-        .btn-primary {
-            background: #fff;
-            color: #000;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s var(--ease-out);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
-
-        /* Trust Strip */
-        .trust-strip {
-            display: flex;
-            justify-content: space-around;
-            padding: 40px 0;
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 80px;
-        }
-
-        .trust-item { text-align: center; }
-        .trust-item span { display: block; font-size: 32px; font-weight: 800; color: var(--accent); }
-        .trust-item label { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Feature Cards */
-        .features-grid {
+        /* Stats Strip */
+        .stats-bar {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 60px;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--surface);
+            padding: 50px 0;
+            border-bottom: 1px solid var(--glass-border);
         }
+        .stat-item { text-align: center; border-right: 1px solid var(--dark-red); }
+        .stat-item:last-child { border: none; }
+        .stat-item h3 { font-size: 3rem; font-family: 'Space Grotesk'; }
+        .stat-item p { color: var(--accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; }
 
-        .feature-card {
-            background: var(--glass);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--glass-border);
-            transition: all 0.4s var(--ease-out);
+        /* Multi-Content Sections */
+        section { padding: 120px 10%; }
+        .section-header { margin-bottom: 80px; }
+        .section-header h2 { font-size: 3.5rem; text-transform: uppercase; line-height: 1; }
+        .section-header p { color: var(--accent); font-weight: 800; margin-bottom: 10px; }
+
+        /* Service Cards with Images */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card { 
+            background: var(--surface); 
+            border: 1px solid var(--glass-border); 
+            padding: 0; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            transition: 0.4s;
         }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .card-img { width: 100%; height: 250px; object-fit: cover; }
+        .card-body { padding: 40px; }
+        .card h4 { font-size: 1.5rem; margin-bottom: 15px; }
+        .card p { color: var(--text-dim); line-height: 1.6; }
 
-        .feature-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-10px);
-            background: rgba(139, 0, 0, 0.05);
+        /* Interactive Process - TAB LOGIC */
+        .process-container { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; background: #080808; padding: 60px; border-radius: 20px; }
+        .process-visual img { width: 100%; border-radius: 12px; border: 1px solid var(--dark-red); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        .step-list { display: flex; flex-direction: column; gap: 20px; }
+        .step-item { 
+            padding: 20px; 
+            border-left: 2px solid var(--dark-red); 
+            cursor: pointer; 
+            transition: 0.3s;
         }
+        .step-item.active { border-left-color: var(--accent); background: rgba(255,0,0,0.05); }
+        .step-item h5 { font-size: 1.2rem; margin-bottom: 5px; }
+        .step-item p { font-size: 0.9rem; color: var(--text-dim); display: none; }
+        .step-item.active p { display: block; }
 
-        .feature-icon {
-            font-size: 24px;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .feature-card h3 { margin-bottom: 16px; font-size: 20px; }
-        .feature-card p { color: var(--text-secondary); font-size: 15px; }
-
-        /* Interactive Showcase (Mockup) */
-        .showcase {
-            background: linear-gradient(180deg, var(--bg), #110000);
-            border-radius: 40px;
-            padding: 100px 60px;
-            text-align: center;
-            margin: 60px auto;
-            border: 1px solid var(--glass-border);
-        }
-
-        .mockup-container {
-            margin-top: 60px;
-            position: relative;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .mockup-main {
-            width: 100%;
-            border-radius: 20px;
-            border: 8px solid #222;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-        }
-
-        /* Tabs Interface */
-        .tab-triggers {
+        /* Large Image Highlight */
+        .highlight { 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555626906-fcf10d6851b4?q=80&w=2000&auto=format&fit=crop') center/cover fixed;
+            height: 600px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .tab-btn {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 99px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .tab-btn.active {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
-
-        /* Closing section */
-        .closing {
             text-align: center;
-            padding: 150px 0;
         }
 
-        .closing h2 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 32px;
-        }
+        /* Portfolio / Gallery Section */
+        .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { position: relative; height: 300px; overflow: hidden; border-radius: 4px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(100%); }
+        .gallery-item:hover img { filter: grayscale(0%); transform: scale(1.1); }
+        .gallery-item:hover::after { content: 'VIEW PROJECT'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-weight: 900; background: var(--accent); padding: 5px 15px; font-size: 0.7rem; }
 
-        footer {
-            padding: 40px;
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 12px;
-            border-top: 1px solid var(--glass-border);
-        }
+        /* Footer Improvement */
+        footer { background: #000; padding: 100px 10%; border-top: 1px solid var(--dark-red); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 100px; margin-bottom: 80px; }
+        .footer-logo { font-size: 2rem; font-weight: 900; margin-bottom: 20px; color: var(--accent); }
+        .footer-links h6 { text-transform: uppercase; color: var(--accent); margin-bottom: 25px; letter-spacing: 2px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: #fff; }
+
+        .copyright { border-top: 1px solid #111; padding-top: 40px; color: #444; font-size: 0.8rem; display: flex; justify-content: space-between; }
 
         /* Animations */
-        [data-animate] {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s var(--ease-out);
-        }
-
-        [data-animate].visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        [data-aos] { opacity: 0; transform: translateY(30px); transition: 1s var(--ease-out); }
+        [data-aos].active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
-    
-    <nav>
-        <div class="logo">AUTORED</div>
-        <div class="nav-links">
-            <a href="#">Layanan</a>
-            <a href="#">Showcase</a>
-            <a href="#">Intelligence</a>
-            <a href="#">Kontak</a>
+
+    <nav style="position: fixed; top: 0; width: 100%; padding: 30px 10%; display: flex; justify-content: space-between; z-index: 1000; mix-blend-mode: difference;">
+        <div class="footer-logo" style="margin: 0; font-size: 1.5rem;">AUTORED.</div>
+        <div class="btn-group">
+            <a href="#services" class="btn-outline" style="padding: 10px 20px; font-size: 12px;">SERVICES</a>
+            <a href="ig_dashboard.html" class="btn-red" style="padding: 10px 20px; font-size: 12px;">CLIENT LOGIN</a>
         </div>
-        <button class="btn-nav">Masuk Sesi</button>
     </nav>
 
-    <main>
-        <section class="hero">
-            <h1 data-animate>Drive the Future.</h1>
-            <p data-animate>Standar baru dalam manajemen aset otomotif premium. Didukung oleh Intelligence Core G-Brain untuk presisi tanpa kompromi.</p>
-            <div class="hero-btns" data-animate>
-                <a href="#" class="btn-primary">Amankan Slot Service</a>
-                <a href="ig_dashboard.html" class="btn-secondary">Lihat Intelligence Lab</a>
+    <div class="hero">
+        <div class="hero-content">
+            <h1 data-aos class="active">The Peak of <span>Aura</span> & Engineering.</h1>
+            <p data-aos class="active">Kami tidak hanya merawat mobil; kami mengoptimasi aset. Memadukan keahlian mekanik tingkat dewa dengan analisis Intelligence G-Brain 0.23.</p>
+            <div class="btn-group" data-aos class="active">
+                <a href="#" class="btn btn-red">BOOK APPOINTMENT</a>
+                <a href="#portfolio" class="btn btn-outline">EXPLORE PROJECTS</a>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="trust-strip" data-animate>
-            <div class="trust-item">
-                <span>12.5k</span>
-                <label>Loyal Audience</label>
-            </div>
-            <div class="trust-item">
-                <span>0.15s</span>
-                <label>Diagnostic Speed</label>
-            </div>
-            <div class="trust-item">
-                <span>24/7</span>
-                <label>AI Monitoring</label>
-            </div>
-            <div class="trust-item">
-                <span>100%</span>
-                <label>Luxury Redefined</label>
-            </div>
-        </section>
+    <div class="stats-bar">
+        <div class="stat-item">
+            <h3>4.9/5</h3>
+            <p>CLIENT RATING</p>
+        </div>
+        <div class="stat-item">
+            <h3>+85%</h3>
+            <p>EFFICIENCY GAIN</p>
+        </div>
+        <div class="stat-item">
+            <h3>2.4k</h3>
+            <p>CARS OPTIMIZED</p>
+        </div>
+        <div class="stat-item">
+            <h3>24/7</h3>
+            <p>AI DIAGNOSTICS</p>
+        </div>
+    </div>
 
-        <section>
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 style="font-size: 36px; font-weight: 800;">Ekosistem Terintegrasi.</h2>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card" data-animate>
-                    <div class="feature-icon"><i class="fas fa-microchip"></i></div>
-                    <h3>Engine Diagnostics</h3>
-                    <p>Sensor real-time yang memantau setiap detak jantung kendaraan Anda melalui laporan dashboard live.</p>
-                </div>
-                <div class="feature-card" data-animate>
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Premium Protection</h3>
-                    <p>Perawatan bodi dan mesin dengan material kelas tinggi yang memastikan nilai aset Anda tetap maksimal.</p>
-                </div>
-                <div class="feature-card" data-animate>
-                    <div class="feature-icon"><i class="fas fa-chart-network"></i></div>
-                    <h3>Insight Analytics</h3>
-                    <p>Dapatkan data performa digital kendaraan dan brand Anda yang dikelola oleh asisten AI cerdas.</p>
+    <section id="services">
+        <div class="section-header" data-aos>
+            <p>WHAT WE DO</p>
+            <h2>Precision Services.</h2>
+        </div>
+        <div class="services-grid">
+            <div class="card" data-aos>
+                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?q=80&w=800" class="card-img">
+                <div class="card-body">
+                    <h4>Performance Tuning</h4>
+                    <p>Remapping ECU dan optimasi mesin untuk mendapatkan power maksimal tanpa mengorbankan durabilitas.</p>
                 </div>
             </div>
-        </section>
+            <div class="card" data-aos>
+                <img src="https://images.unsplash.com/photo-1507133311040-53d2d2a4deb2?q=80&w=800" class="card-img">
+                <div class="card-body">
+                    <h4>Luxury Aesthetics</h4>
+                    <p>Ceramic coating, full body wrap, dan interior restoration dengan standar jet pribadi.</p>
+                </div>
+            </div>
+            <div class="card" data-aos>
+                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=800" class="card-img">
+                <div class="card-body">
+                    <h4>AI Diagnostics</h4>
+                    <p>Integrasi sistem sensor ke dashboard personal Anda untuk deteksi dini kerusakan komponen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section class="showcase">
-            <h2 style="font-size: 40px; margin-bottom: 20px;">Intelligence at your fingertips.</h2>
-            <div class="tab-triggers">
-                <button class="tab-btn active" onclick="switchView('mobile')">Mobile Experience</button>
-                <button class="tab-btn" onclick="switchView('desktop')">Pro Dashboard</button>
-            </div>
-            <div class="mockup-container" data-animate>
-                <img id="mockup-img" src="https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1200&auto=format&fit=crop" class="mockup-main" alt="Mockup">
-            </div>
-        </section>
+    <div class="highlight">
+        <div data-aos>
+            <h2 style="font-size: 4rem; text-transform: uppercase;">Engineering <span style="color: var(--accent)">Emotions.</span></h2>
+            <p style="margin-top: 20px; font-weight: 300;">Setiap baut yang kami kencangkan adalah janji keselamatan dan kecepatan.</p>
+        </div>
+    </div>
 
-        <section class="closing">
-            <h2 data-animate>Siap melaju lebih jauh?</h2>
-            <div class="hero-btns" style="justify-content: center;" data-animate>
-                <button class="btn-primary" onclick="launchModal()">Mulai Sekarang</button>
+    <section id="process">
+        <div class="process-container" data-aos>
+            <div class="process-visual">
+                <img id="process-img" src="https://images.unsplash.com/photo-1530046339160-ce3e5b0c7a2f?q=80&w=1200" alt="Process">
             </div>
-        </section>
-    </main>
+            <div class="step-list">
+                <div class="section-header" style="margin-bottom: 30px;">
+                    <p>HOW IT WORKS</p>
+                    <h3 style="font-size: 2rem;">Seamless Process</h3>
+                </div>
+                <div class="step-item active" onclick="updateProcess(0, 'https://images.unsplash.com/photo-1530046339160-ce3e5b0c7a2f?q=80&w=1200')">
+                    <h5>01. Intake & Scanning</h5>
+                    <p>Kendaraan Anda difoto 360 derajat dan discan menggunakan sensor AI kami untuk mencari titik lemah.</p>
+                </div>
+                <div class="step-item" onclick="updateProcess(1, 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1200')">
+                    <h5>02. Optimization Phase</h5>
+                    <p>Teknisi ahli kami mengerjakan setiap detail, mulai dari mekanik hingga estetika visual.</p>
+                </div>
+                <div class="step-item" onclick="updateProcess(2, 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1200')">
+                    <h5>03. Final Validation</h5>
+                    <p>Uji coba di dyno-test dan inspeksi akhir sebelum diserahkan kembali ke tangan Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-header" data-aos>
+            <p>GALLERY</p>
+            <h2>The Red Heritage.</h2>
+        </div>
+        <div class="gallery">
+            <div class="gallery-item" data-aos><img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?q=80&w=500"></div>
+            <div class="gallery-item" data-aos><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=500"></div>
+            <div class="gallery-item" data-aos><img src="https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=500"></div>
+            <div class="gallery-item" data-aos><img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=500"></div>
+        </div>
+    </section>
 
     <footer>
-        &copy; 2026 AUTORED & PT Difin Kreatif Incorpora. <br>
-        Engineering by Duha Alqausar | Intelligence by Hermes Agent.
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">AUTORED.</div>
+                <p style="color: var(--text-dim); line-height: 1.8;">Standar baru bengkel masa depan. Menggabungkan otot industri dengan intelegensi yapasan G-Brain dari Digital Finger. </p>
+            </div>
+            <div class="footer-links">
+                <h6>QUICK LINKS</h6>
+                <ul>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Our Lab</a></li>
+                    <li><a href="#">Intelligence</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h6>HQ OFFICE</h6>
+                <p style="color: var(--text-dim)">Proxsis Group Tower,<br>Jakarta, Indonesia.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 PT DIFIN KREATIF INCORPORA. ALL RIGHTS RESERVED.</p>
+            <p>ENGINEERED BY DUHA ALQAUSAR & HERMES</p>
+        </div>
     </footer>
 
     <script>
-        // Intersection Observer for Scroll Animations (Apple-like)
+        // AOS Simulation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+        document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
 
-        // Interactive Tab Logic
-        function switchView(type) {
-            const img = document.getElementById('mockup-img');
-            const btns = document.querySelectorAll('.tab-btn');
+        // Interactive Process Tab
+        function updateProcess(index, imgUrl) {
+            const items = document.querySelectorAll('.step-item');
+            const img = document.getElementById('process-img');
             
-            btns.forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Simulate content change
+            items.forEach(i => i.classList.remove('active'));
+            items[index].classList.add('active');
+            
             img.style.opacity = '0.5';
             setTimeout(() => {
-                if(type === 'mobile') {
-                    img.src = "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?q=80&w=1200&auto=format&fit=crop";
-                } else {
-                    img.src = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop";
-                }
+                img.src = imgUrl;
                 img.style.opacity = '1';
             }, 300);
-        }
-
-        function launchModal() {
-            alert("Sistem Pendaftaran Siap. Menghubungkan ke Tim Digital Finger...");
         }
     </script>
 </body>
